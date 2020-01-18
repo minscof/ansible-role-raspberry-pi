@@ -6,8 +6,25 @@ raspberry_pi_boot_config_options:
   # Enable 1200ma USB current on newer model Pis.
   - regexp: "^#?max_usb_current"
     line: "max_usb_current=1"
+  # disable on-board sound card.
+  - regexp: "^#?dtparam=audio"
+    line: "dtparam=audio=off"
+  # disable led.
+  - regexp: "^#?dtparam=act_led_trigger"
+    line: "dtparam=act_led_trigger=none"
+  # disable led.
+  - regexp: "^#?dtparam=act_led_activelow"
+    line: "dtparam=act_led_activelow=none"        
+  # disable wifi.
+  - regexp: "^#?dtoverlay=pi3-disable-wifi"
+    line: "dtoverlay=pi3-disable-wifi"    
+  # disable start tv at boot.
+  - regexp: "^#?hdmi_ignore_cec_init"
+    line: "hdmi_ignore_cec_init=1"    
+
+
 
 raspberry_pi_rc_local_options:
-  # Disable HDMI on startup (for power savings).
-  - regexp: "^/usr/bin/tvservice"
-    line: "/usr/bin/tvservice -o"
+  # print IP at startup.
+  - regexp: "IP=$(hostname"
+    line: "_IP=$(hostname -I) || true"
